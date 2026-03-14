@@ -1,0 +1,12 @@
+{
+  "hero": {
+    "title": "DRAGHO ",
+    "subtitle": "Fashion Shop",
+    "buttonText": "Shop Now"
+  },
+  "broadcast": {
+    "enabled": false,
+    "message": "Welcome to DRAGHO!",
+    "type": "info"
+  }
+}
