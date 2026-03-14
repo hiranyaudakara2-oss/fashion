@@ -11,14 +11,16 @@ export default function AdminDashboard() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    console.log('Fetching CMS content...');
     fetch('/api/content')
       .then(res => res.json())
       .then(data => {
+        console.log('CMS content loaded:', data);
         setContent(data);
         setLoading(false);
       })
       .catch(err => {
-        console.error(err);
+        console.error('Failed to load CMS content:', err);
         setLoading(false);
       });
   }, []);
@@ -130,8 +132,8 @@ export default function AdminDashboard() {
                 <label className="block text-xs uppercase tracking-widest text-[#A1A1A1] mb-2 font-medium">Main Title</label>
                 <input 
                   type="text" 
-                  value={content.hero.title}
-                  onChange={(e) => setContent({...content, hero: {...content.hero, title: e.target.value}})}
+                  value={content?.hero?.title || ""}
+                  onChange={(e) => setContent({...content, hero: {...(content?.hero || {}), title: e.target.value}})}
                   className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:outline-none focus:border-white transition-colors"
                 />
               </div>
@@ -139,8 +141,8 @@ export default function AdminDashboard() {
                 <label className="block text-xs uppercase tracking-widest text-[#A1A1A1] mb-2 font-medium">Subtitle</label>
                 <input 
                   type="text" 
-                  value={content.hero.subtitle}
-                  onChange={(e) => setContent({...content, hero: {...content.hero, subtitle: e.target.value}})}
+                  value={content?.hero?.subtitle || ""}
+                  onChange={(e) => setContent({...content, hero: {...(content?.hero || {}), subtitle: e.target.value}})}
                   className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:outline-none focus:border-white transition-colors"
                 />
               </div>
@@ -148,8 +150,8 @@ export default function AdminDashboard() {
                 <label className="block text-xs uppercase tracking-widest text-[#A1A1A1] mb-2 font-medium">Button Text</label>
                 <input 
                   type="text" 
-                  value={content.hero.buttonText}
-                  onChange={(e) => setContent({...content, hero: {...content.hero, buttonText: e.target.value}})}
+                  value={content?.hero?.buttonText || ""}
+                  onChange={(e) => setContent({...content, hero: {...(content?.hero || {}), buttonText: e.target.value}})}
                   className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:outline-none focus:border-white transition-colors"
                 />
               </div>
@@ -163,17 +165,17 @@ export default function AdminDashboard() {
               <div className="flex items-center gap-4 mb-2">
                 <label className="text-xs uppercase tracking-widest text-[#A1A1A1] font-medium">Enable Broadcast</label>
                 <button 
-                  onClick={() => setContent({...content, broadcast: {...content.broadcast, enabled: !content.broadcast.enabled}})}
-                  className={`w-12 h-6 rounded-full transition-colors relative ${content.broadcast.enabled ? 'bg-red-600' : 'bg-white/10'}`}
+                  onClick={() => setContent({...content, broadcast: {...(content?.broadcast || {}), enabled: !content?.broadcast?.enabled}})}
+                  className={`w-12 h-6 rounded-full transition-colors relative ${content?.broadcast?.enabled ? 'bg-red-600' : 'bg-white/10'}`}
                 >
-                  <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${content.broadcast.enabled ? 'left-7' : 'left-1'}`} />
+                  <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${content?.broadcast?.enabled ? 'left-7' : 'left-1'}`} />
                 </button>
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-widest text-[#A1A1A1] mb-2 font-medium">Message Content</label>
                 <textarea 
-                  value={content.broadcast.message}
-                  onChange={(e) => setContent({...content, broadcast: {...content.broadcast, message: e.target.value}})}
+                  value={content?.broadcast?.message || ""}
+                  onChange={(e) => setContent({...content, broadcast: {...(content?.broadcast || {}), message: e.target.value}})}
                   className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:outline-none focus:border-white transition-colors min-h-[100px]"
                   placeholder="Enter message for all users..."
                 />
@@ -181,8 +183,8 @@ export default function AdminDashboard() {
               <div>
                 <label className="block text-xs uppercase tracking-widest text-[#A1A1A1] mb-2 font-medium">Message Type</label>
                 <select 
-                  value={content.broadcast.type}
-                  onChange={(e) => setContent({...content, broadcast: {...content.broadcast, type: e.target.value}})}
+                  value={content?.broadcast?.type || "info"}
+                  onChange={(e) => setContent({...content, broadcast: {...(content?.broadcast || {}), type: e.target.value}})}
                   className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:outline-none focus:border-white transition-colors appearance-none"
                 >
                   <option value="info">Information (Blue)</option>
