@@ -35,24 +35,24 @@ export default function WelcomeModal() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-lg bg-white/90 dark:bg-[#1A1A1A]/90 backdrop-blur-2xl rounded-3xl p-8 shadow-2xl border border-white/20"
+            className="relative w-full max-w-lg bg-black/90 backdrop-blur-2xl rounded-3xl p-8 shadow-2xl border border-red-900/50 text-white"
           >
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-6 right-6 p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+              className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/10 transition-colors"
             >
               <X size={20} />
             </button>
-            <h2 className="font-serif text-4xl mb-4">Welcome to DRAGHO</h2>
-            <p className="text-lg opacity-80 mb-8">
-              Experience the intersection of timeless elegance and contemporary design.
+            <h2 className="font-display text-4xl mb-4 text-red-600 uppercase tracking-tighter">Welcome to DRAGHO</h2>
+            <p className="text-lg text-white/70 mb-8 font-sans">
+              Step in and discover the latest trends curated just for you. Happy shopping!
             </p>
             <button
               onClick={() => {
                 setIsOpen(false);
                 navigate('/products');
               }}
-              className="w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-full font-medium tracking-widest uppercase hover:opacity-90 transition-opacity"
+              className="w-full py-4 bg-red-800 text-white rounded-full font-medium tracking-widest uppercase hover:bg-red-700 transition-colors"
             >
               Discover Collection
             </button>

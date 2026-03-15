@@ -8,7 +8,7 @@ export default function Marquee() {
         transition={{
           repeat: Infinity,
           ease: "linear",
-          duration: 20
+          duration: 40
         }}
         className="flex whitespace-nowrap"
       >

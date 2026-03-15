@@ -38,9 +38,9 @@ export default function Preloader() {
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050507] overflow-hidden"
         >
           {/* Cinematic Lighting / Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-white/5 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-red-900/10 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
           
-          {/* Majestic Eagle Image */}
+          {/* Fashion Image */}
           <motion.div 
             initial={{ opacity: 0, scale: 1.1, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -55,9 +55,9 @@ export default function Preloader() {
               }}
             />
             <img 
-              src="https://images.unsplash.com/photo-1508144753681-9986d4df99b3?q=80&w=2000&auto=format&fit=crop" 
-              alt="Majestic Eagle" 
-              className="w-full h-full object-cover opacity-70 grayscale-[30%] contrast-125"
+              src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2000&auto=format&fit=crop" 
+              alt="High Fashion" 
+              className="w-full h-full object-cover opacity-50 grayscale-[50%] contrast-125"
               referrerPolicy="no-referrer"
             />
           </motion.div>

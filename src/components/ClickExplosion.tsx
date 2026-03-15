@@ -31,7 +31,7 @@ export default function ClickExplosion() {
             <motion.div
               key={i}
               className="absolute w-2 h-2 rounded-full"
-              style={{ backgroundColor: i % 2 === 0 ? '#878681' : '#D4AF37' }}
+              style={{ backgroundColor: i % 2 === 0 ? '#8b0000' : '#ffffff' }}
               initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
               animate={{ 
                 x: Math.cos((i / 8) * Math.PI * 2) * 100, 

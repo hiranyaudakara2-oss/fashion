@@ -1,14 +1,12 @@
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../context/ThemeContext';
 import { useShop } from '../context/ShopContext';
 import { socketService } from '../services/socketService';
 
 export default function ProductGallery() {
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState<any[]>([]);
-  const { theme } = useTheme();
   const { setBgColor } = useShop();
   const navigate = useNavigate();
 
@@ -56,11 +54,11 @@ export default function ProductGallery() {
           placeholder="Search products..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className={`px-6 py-3 rounded-full border ${theme === 'light' ? 'border-[#171E27]/20 bg-white text-[#171E27]' : 'border-white/20 bg-[#1A1A1A] text-white'} focus:outline-none focus:border-white/50 transition-colors`}
+          className={`px-6 py-3 rounded-full border border-white/20 bg-[#1A1A1A] text-white focus:outline-none focus:border-white/50 transition-colors`}
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
         {filteredProducts.map((product, index) => (
           <motion.div
             key={product.id}
@@ -89,7 +87,7 @@ export default function ProductGallery() {
               <div className="absolute inset-0 bg-transparent group-hover:bg-black/40 transition-colors duration-500 pointer-events-none" />
               
               <div className="absolute bottom-0 left-0 w-full p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out flex justify-center">
-                <button className={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest w-full transition-colors ${theme === 'light' ? 'bg-[#171E27] text-white hover:bg-[#171E27]/80' : 'bg-white text-black hover:bg-gray-200'}`}>
+                <button className={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest w-full transition-colors bg-white text-black hover:bg-gray-200`}>
                   Quick Add
                 </button>
               </div>
@@ -97,7 +95,7 @@ export default function ProductGallery() {
             
             <div className="flex justify-between items-start">
               <div>
-                <p className={`text-[10px] uppercase tracking-widest mb-1 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>{product.category}</p>
+                <p className={`text-[10px] uppercase tracking-widest mb-1 text-gray-400`}>{product.category}</p>
                 <h3 className="text-lg font-medium">{product.name}</h3>
               </div>
               <p className="text-lg font-light">{product.price}</p>

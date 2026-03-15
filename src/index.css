@@ -5,7 +5,7 @@
   --font-display: "Playfair Display", serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   
-  --color-bg: #1A0B2E;
+  --color-bg: #050000;
   --color-ink: #FFFFFF;
   --color-titanium: #878681;
   --color-silver: #E8E9EB;
@@ -53,12 +53,19 @@ html {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAFAFA;
+  background: #050000;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E8E9EB;
+  background: #3a0000;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #878681;
+  background: #8b0000;
+}
+
+/* Force visibility on all images as requested */
+img, .product-image, [role="img"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }

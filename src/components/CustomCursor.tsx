@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-import { motion, useMotionValue } from 'motion/react';
+import { useEffect, useState, useRef } from 'react';
+import { motion } from 'motion/react';
 import { useLocation } from 'react-router-dom';
-import { useTheme } from '../context/ThemeContext';
 import { useShop } from '../context/ShopContext';
 
 function isColorLight(color: string) {
@@ -16,16 +15,12 @@ function isColorLight(color: string) {
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const { theme } = useTheme();
   const { bgColor: shopBgColor } = useShop();
   const location = useLocation();
+  const cursorRef = useRef<HTMLDivElement>(null);
 
   const isShopPage = location.pathname === '/shop';
-  const isLight = isShopPage ? isColorLight(shopBgColor) : theme === 'light';
-
-  // Use motion values for the cursor position
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
+  const isLight = isShopPage ? isColorLight(shopBgColor) : false;
 
   useEffect(() => {
     // Only show custom cursor on devices with a fine pointer (mouse)
@@ -34,8 +29,11 @@ export default function CustomCursor() {
     }
 
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
+      if (cursorRef.current) {
+        // Update position instantly without React state or Framer Motion overhead
+        cursorRef.current.style.left = `${e.clientX}px`;
+        cursorRef.current.style.top = `${e.clientY}px`;
+      }
       if (!isVisible) setIsVisible(true);
     };
 
@@ -75,43 +73,55 @@ export default function CustomCursor() {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [cursorX, cursorY, isVisible]);
+  }, [isVisible]);
 
   if (!isVisible) return null;
 
-  const borderColor = isLight ? '#171E27' : '#FFFFFF';
-  const bgColor = isLight ? 'rgba(23, 30, 39, 0.15)' : 'rgba(255, 255, 255, 0.15)';
-  const hoverBgColor = isLight ? 'rgba(23, 30, 39, 0.4)' : 'rgba(255, 255, 255, 0.4)';
+  const redColor = '#FF3B30'; // Stylish iOS-style red
+  const borderColor = redColor;
+  const bgColor = 'rgba(255, 59, 48, 0.15)';
+  const hoverBgColor = 'rgba(255, 59, 48, 0.4)';
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[10000] flex items-center justify-center backdrop-blur-md"
+    <div
+      ref={cursorRef}
+      className="fixed pointer-events-none z-[10000] flex items-center justify-center"
       style={{
-        x: cursorX,
-        y: cursorY,
-        left: -16, // half of 32px
-        top: -16,
-        border: `1.5px solid ${borderColor}`,
-      }}
-      animate={{
-        scale: isHovering ? 1.8 : 1,
-        backgroundColor: isHovering ? hoverBgColor : bgColor,
-      }}
-      transition={{
-        scale: { type: 'spring', stiffness: 300, damping: 20 },
-        backgroundColor: { duration: 0.2 }
+        left: -100,
+        top: -100,
+        transform: 'translate(-50%, -50%)',
+        transition: 'none', // Explicitly ensure NO CSS transitions on left or top
+        willChange: 'left, top',
       }}
     >
-      {/* Inner dot for precision */}
-      <motion.div 
-        className="w-1 h-1 rounded-full"
-        style={{ backgroundColor: borderColor }}
-        animate={{
-          opacity: isHovering ? 0 : 1,
-          scale: isHovering ? 0 : 1
+      <motion.div
+        className="w-6 h-6 rounded-full flex items-center justify-center"
+        style={{
+          border: `2px solid ${borderColor}`,
+          boxShadow: `0 0 15px ${redColor}44`,
         }}
-        transition={{ duration: 0.2 }}
-      />
-    </motion.div>
+        animate={{
+          scale: isHovering ? 2.5 : 1,
+          backgroundColor: isHovering ? hoverBgColor : bgColor,
+          borderWidth: isHovering ? '1px' : '2px',
+        }}
+        transition={{
+          scale: { type: 'spring', stiffness: 250, damping: 25 },
+          backgroundColor: { duration: 0.2 },
+          borderWidth: { duration: 0.2 }
+        }}
+      >
+        {/* Inner dot for precision */}
+        <motion.div 
+          className="w-1.5 h-1.5 rounded-full"
+          style={{ backgroundColor: borderColor }}
+          animate={{
+            scale: isHovering ? 0.5 : 1,
+            opacity: isHovering ? 0.5 : 1
+          }}
+          transition={{ duration: 0.2 }}
+        />
+      </motion.div>
+    </div>
   );
 }

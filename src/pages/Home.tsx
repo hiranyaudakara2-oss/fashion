@@ -1,16 +1,16 @@
-import Hero from '../components/Hero';
-import Snowfall from '../components/Snowfall';
-import Marquee from '../components/Marquee';
 import PageTransition from '../components/PageTransition';
+import RedClothBackground from '../components/RedClothBackground';
+import DraghoHero from '../components/DraghoHero';
+import DraghoCollections from '../components/DraghoCollections';
 
 export default function Home() {
   return (
     <PageTransition>
-      <div className="bg-[#1A1A1A] min-h-screen text-white selection:bg-[#878681] selection:text-white relative pb-24">
-        <Snowfall />
-        <main>
-          <Hero />
-          <Marquee />
+      <div className="bg-transparent min-h-screen text-white selection:bg-red-900 selection:text-white relative z-0">
+        <RedClothBackground />
+        <main className="relative z-10">
+          <DraghoHero />
+          <DraghoCollections />
         </main>
       </div>
     </PageTransition>
